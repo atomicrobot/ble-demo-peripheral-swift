@@ -17,6 +17,8 @@
 		6660256327D2AEF2007DC558 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660253927D2AEF1007DC558 /* ContentView.swift */; };
 		6660256427D2AEF2007DC558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6660253A27D2AEF2007DC558 /* Assets.xcassets */; };
 		6660256527D2AEF2007DC558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6660253A27D2AEF2007DC558 /* Assets.xcassets */; };
+		6660257627D66217007DC558 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660257527D66217007DC558 /* PeripheralManager.swift */; };
+		6660257727D66217007DC558 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6660257527D66217007DC558 /* PeripheralManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		6660255827D2AEF2007DC558 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6660255C27D2AEF2007DC558 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		6660255E27D2AEF2007DC558 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		6660257427D661F4007DC558 /* ble-peripheral-apple--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ble-peripheral-apple--iOS--Info.plist"; sourceTree = "<group>"; };
+		6660257527D66217007DC558 /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 		6660253227D2AEF1007DC558 = {
 			isa = PBXGroup;
 			children = (
+				6660257427D661F4007DC558 /* ble-peripheral-apple--iOS--Info.plist */,
 				6660253727D2AEF1007DC558 /* Shared */,
 				6660254627D2AEF2007DC558 /* macOS */,
 				6660254F27D2AEF2007DC558 /* Tests iOS */,
@@ -99,6 +104,7 @@
 			children = (
 				6660253827D2AEF1007DC558 /* ble_peripheral_appleApp.swift */,
 				6660253927D2AEF1007DC558 /* ContentView.swift */,
+				6660257527D66217007DC558 /* PeripheralManager.swift */,
 				6660253A27D2AEF2007DC558 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -299,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6660257627D66217007DC558 /* PeripheralManager.swift in Sources */,
 				6660256227D2AEF2007DC558 /* ContentView.swift in Sources */,
 				6660256027D2AEF2007DC558 /* ble_peripheral_appleApp.swift in Sources */,
 			);
@@ -308,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6660257727D66217007DC558 /* PeripheralManager.swift in Sources */,
 				6660256327D2AEF2007DC558 /* ContentView.swift in Sources */,
 				6660256127D2AEF2007DC558 /* ble_peripheral_appleApp.swift in Sources */,
 			);
@@ -468,6 +476,8 @@
 				DEVELOPMENT_TEAM = 928PH8VG5G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ble-peripheral-apple--iOS--Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Peripheral Demo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -498,6 +508,8 @@
 				DEVELOPMENT_TEAM = 928PH8VG5G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ble-peripheral-apple--iOS--Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Peripheral Demo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -532,6 +544,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "For demo purposes!";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -560,6 +573,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "For demo purposes!";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,16 +1,15 @@
-//
-//  ContentView.swift
-//  Shared
-//
-//  Created by Adam Toennis on 3/4/22.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var peripheralManager: PeripheralManager
+
     var body: some View {
-        Text("Hello, world!")
+        Text("Hello, World!")
             .padding()
+            .frame(width: 300, height: 200)
+            .onAppear {
+                peripheralManager.start()
+            }
     }
 }
 

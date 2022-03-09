@@ -12,6 +12,7 @@ struct ble_peripheral_appleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(PeripheralManager())
         }
     }
 }
