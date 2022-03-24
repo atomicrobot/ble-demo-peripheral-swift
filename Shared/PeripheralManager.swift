@@ -1,3 +1,4 @@
+import Combine
 import CoreBluetooth
 import Foundation
 
@@ -17,11 +18,11 @@ class PeripheralManager: NSObject, ObservableObject {
     static let characteristicUUID3 = CBUUID(string: "a575bce2-a1a1-4040-8d3f-11cbd07df6cf")
     static let characteristicUUID4 = CBUUID(string: "a575bce3-a1a1-4040-8d3f-11cbd07df6cf")
     static let echoCharacteristic = CBMutableCharacteristic(type: echoCharacteristicUUID,
-                                                            properties: [.write, .read, .notify],
+                                                            properties: [.write, .read],
                                                             value: nil,
                                                             permissions: [.writeable, .readable])
     static let timerCharacteristic = CBMutableCharacteristic(type: timerCharacteristicUUID,
-                                                             properties: [.write, .read, .notify],
+                                                             properties: [.read, .notify],
                                                              value: nil,
                                                              permissions: [.writeable, .readable])
     static let characteristic3 = CBMutableCharacteristic(type: characteristicUUID3,
@@ -35,12 +36,13 @@ class PeripheralManager: NSObject, ObservableObject {
     static let characteristics = [
         echoCharacteristic,
         timerCharacteristic//,
-//        characteristic3,
-//        characteristic4
+        //        characteristic3,
+        //        characteristic4
     ]
     let advertisementDataLocalNameKey = "HelloWorld"
-
     let formatter: ISO8601DateFormatter
+    var echoValue = Data()
+    var cancellables = Set<AnyCancellable>()
 
     override init() {
         formatter = ISO8601DateFormatter()
@@ -50,6 +52,17 @@ class PeripheralManager: NSObject, ObservableObject {
 
     func start() {
         manager = CBPeripheralManager(delegate: self, queue: nil)
+
+        Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .scan(0) { counter, _ in
+                counter + 1
+            }
+            .sink { [weak self] value in
+                guard let data = String(value).data(using: .utf8) else { return }
+                self?.manager.updateValue(data, for: PeripheralManager.timerCharacteristic, onSubscribedCentrals: nil)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -75,8 +88,16 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
 
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
         print("\(formatter.string(from: Date())) didReceiveRead")
-        let data: Data = Data([0, 0, 0, 0, 0])
-        request.value = data
+        if request.characteristic == PeripheralManager.echoCharacteristic {
+            request.value = echoValue
+        } else if request.characteristic == PeripheralManager.timerCharacteristic {
+
+        }
+        else {
+            let data: Data = Data([0, 0, 0, 0, 0])
+            request.value = data
+        }
+
         manager.respond(to: request,
                         withResult: .success)
     }
@@ -84,7 +105,11 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         if let request = requests.first,
            let data = request.value {
-            print("\(formatter.string(from: Date())) Received data: \(data)")
+            print("\(formatter.string(from: Date())) Received data: \(String(decoding: data, as: UTF8.self))")
+            if request.characteristic == PeripheralManager.echoCharacteristic {
+                echoValue = data
+                manager.updateValue(data, for: PeripheralManager.echoCharacteristic, onSubscribedCentrals: nil)
+            }
         }
     }
 }
